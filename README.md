@@ -5,7 +5,7 @@
 [![Python](https://img.shields.io/badge/Python-3.11%2B-blue.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%2F11-lightgrey.svg)](#requirements)
 
-**KnobMixer** is a Windows per-app volume controller. It redirects keyboard volume keys, media buttons, and supported USB volume knobs to one selected application instead of changing the Windows master volume.
+**KnobMixer** is a Windows per-app volume controller. It redirects keyboard volume keys, `Fn` volume shortcuts, media buttons, and supported USB volume knobs to one selected application instead of changing the Windows master volume.
 
 <p align="center">
   <img src="app/assets/icon.png" alt="KnobMixer icon" width="96" height="96">
@@ -13,7 +13,7 @@
 
 ## What it does
 
-Normally, `Volume Up`, `Volume Down`, `Mute`, and many physical knobs control the global Windows volume. KnobMixer listens for those controls and applies them to the selected audio application, such as Spotify, Discord, a browser, or a game.
+Normally, `Volume Up`, `Volume Down`, `Mute`, `Fn` volume shortcuts, and many physical volume knobs control the global Windows volume. KnobMixer listens for those controls and applies them to the selected audio application, such as Spotify, Discord, a browser, or a game.
 
 Example:
 
@@ -35,11 +35,38 @@ KnobMixer tries to suppress changes to Windows master volume when possible. This
 - Controls all audio sessions that belong to the selected process.
 - Automatically resumes control when the process closes and opens again.
 - Supports standard `VK_VOLUME_UP`, `VK_VOLUME_DOWN`, and `VK_VOLUME_MUTE` keyboard events.
+- Supports `Fn` volume shortcuts when the keyboard sends standard Windows volume events.
 - Supports Raw Input / HID Consumer Control devices for many multimedia keyboards, macro pads, and USB volume knobs.
 - Always-on volume intercept: the UI checkbox is locked on intentionally.
 - Runs in the Windows system tray.
 - Stores settings in a local JSON file.
 - Builds into a standalone `.exe` with PyInstaller.
+
+## Fn key combinations
+
+KnobMixer works with laptop keyboards and compact keyboards that use shortcuts such as `Fn + F1`, `Fn + F2`, `Fn + F3`, or similar media-key combinations, as long as those shortcuts send standard Windows volume events.
+
+Important: KnobMixer does not intercept the `Fn` key directly. On most keyboards, `Fn` is handled by the keyboard firmware before Windows receives anything. KnobMixer reacts to the final volume event that Windows receives, such as:
+
+```text
+VK_VOLUME_UP
+VK_VOLUME_DOWN
+VK_VOLUME_MUTE
+```
+
+If a keyboard handles `Fn` shortcuts completely in firmware or sends non-standard HID events, behavior may depend on the device. In that case, Raw Input / HID mode may still detect the volume event, but full master-volume suppression is not guaranteed.
+
+## Supported controls
+
+KnobMixer is not tied to one specific keyboard or device model. It is designed to work with devices that send standard Windows volume input:
+
+- regular keyboard volume keys;
+- laptop `Fn` volume shortcuts;
+- multimedia keyboards;
+- USB volume knobs;
+- macro pads;
+- HID Consumer Control devices;
+- physical volume knobs that send standard volume events.
 
 ## Requirements
 
@@ -138,7 +165,13 @@ VK_VOLUME_DOWN
 VK_VOLUME_MUTE
 ```
 
-For USB knobs or multimedia devices, Raw Input can receive the event, but the system volume may still change before KnobMixer can react.
+For USB knobs, multimedia devices, or some `Fn` shortcuts, Raw Input can receive the event, but the system volume may still change before KnobMixer can react.
+
+## Antivirus notice
+
+KnobMixer uses Windows keyboard hooks and Raw Input to capture volume keys and HID media controls. Some antivirus software may flag PyInstaller-built executables as suspicious because of this behavior.
+
+The source code is available for review, and release builds are produced through GitHub Actions.
 
 ## Troubleshooting
 
@@ -147,6 +180,8 @@ See [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md).
 ## Build artifacts
 
 GitHub Actions builds `KnobMixer.exe` on Windows and uploads it as a workflow artifact. Open the latest successful workflow run and download `KnobMixer-windows`.
+
+Stable release builds are available on the [Releases](https://github.com/vtaeely/KnobMixer/releases) page.
 
 ## License
 
