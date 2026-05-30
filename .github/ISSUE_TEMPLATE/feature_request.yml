@@ -1,0 +1,19 @@
+name: Feature request
+description: Suggest an improvement for KnobMixer
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Feature
+      description: What should be added or changed?
+    validations:
+      required: true
+  - type: textarea
+    id: usecase
+    attributes:
+      label: Use case
+      description: Why is this useful?
+    validations:
+      required: true

@@ -1,0 +1,21 @@
+[project]
+name = "knobmixer"
+version = "0.1.0"
+description = "Windows per-app volume controller for keyboard volume keys, media buttons, and USB volume knobs."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "KnobMixer contributors" }]
+keywords = ["windows", "audio", "volume", "pyqt", "hid", "raw-input"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Win32 (MS Windows)",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Sound/Audio",
+]
+
+[tool.pyinstaller]
+spec = "KnobMixer.spec"
